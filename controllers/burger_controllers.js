@@ -1,5 +1,5 @@
 var express = require("express");
-var burger = require("../models/burger");
+var burger = require("../models/burger.js");
 
 var router = express.Router();
 
@@ -14,10 +14,11 @@ router.get("/", function(req, res) {
 });
 
 router.post("/api/burgers", function(req, res){
+    req.body.devour = 0;
     burger.insertOne([
         "name", "devoured"
     ], [
-        req.body.name
+        req.body.name, req.body.devour
     ], function(result){
         res.json({ id: result.insertId });
     });
